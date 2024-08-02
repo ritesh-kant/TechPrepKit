@@ -1,0 +1,26 @@
+cors
+localstorage, sessionstorage, cookie
+seo
+service worker vs web worker
+offline access
+
+security in reactjs
+content security policy
+rate limiting on FE
+when to use higher order functions and custom hooks
+
+There’s a benchmark made by Fastify creators, it shows that express.js can handle ~15K requests per second,
+ and the vanilla HTTP module can handle 70K rps.
+
+ graphql versioning
+ graphql documents
+ graphql comments
+ graphql profiling
+ graphql authentication/authorization
+ graphql pagination
+ graphql error handling
+
+ require vs module
+ npm vs yarn
+ 
+ Event bubbling and capturing 
