@@ -6,7 +6,6 @@
 //             data[eachKey].forEach((eachValue) => {
 //                 obfuscate(eachValue, targets)
 //             })
-//             obfuscate(data[eachKey], targets)
 //         } else if(data[eachKey] instanceof Object) {
 //             obfuscate(data[eachKey], targets)
 //         }
@@ -52,7 +51,7 @@ function mask(obj, key) {
     }
     const result = Array.isArray(obj) ? []: {}
     for(let eachitem in obj){
-        obj[eachitem] = mask(obj[eachitem], eachitem)
+        result[eachitem] = mask(obj[eachitem], eachitem)
     }
    return result
 }

@@ -1,25 +1,49 @@
-import { BasePizza } from "./base";
-
-export abstract class PizzaDecorator extends BasePizza {
-}
-
-export class ExtraCheeseDecorator extends PizzaDecorator {
-    basePizza: BasePizza
-    constructor(basePizza: BasePizza) {
-        super();
-        this.basePizza = basePizza;
-    }
+interface Pizza {
+    cost(): number
+    description(): string
+  }
+  
+  class PizzaBase implements Pizza {
     cost(): number {
-       return this.basePizza.cost()+5;
+      return 5;
     }
-}
-export class PaneerDecorator extends PizzaDecorator {
-    basePizza: BasePizza
-    constructor(basePizza: BasePizza) {
-        super();
-        this.basePizza = basePizza;
+    description(): string {
+      return "Basic pizza"
+  
     }
+  }
+  
+  abstract class PizzaDecorator implements Pizza {
+    constructor(protected pizza: Pizza) { }
+    abstract cost(): number
+    abstract description(): string
+  }
+  
+  class ExtraCheeseDecorator extends PizzaDecorator {
     cost(): number {
-       return this.basePizza.cost()+10;
+      return this.pizza.cost() + 5
     }
-}
+    description(): string {
+      return this.pizza.description() + " ,cheese"
+    }
+  }
+  
+  class PaneerDecorator extends PizzaDecorator {
+    cost(): number {
+      return this.pizza.cost() + 3
+    }
+    description(): string {
+     return this.pizza.description() + " ,paneer"
+    }
+  
+  }
+  
+  // Usage
+  let pizza = new PizzaBase();
+  console.log(pizza.description()+"_"+pizza.cost())
+  
+  pizza = new ExtraCheeseDecorator(pizza)
+  console.log(pizza.description()+"_"+pizza.cost())
+  
+  pizza = new PaneerDecorator(pizza)
+  console.log(pizza.description()+"_"+pizza.cost())
