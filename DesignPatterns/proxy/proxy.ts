@@ -1,3 +1,4 @@
+// Structual design pattern
 interface Employee {
     create(): void;
 }
@@ -8,8 +9,6 @@ class EmployeeImpl implements Employee {
     }
 }
 
-
-///////////////////////////proxy///////////////
 class EmployeeProxy implements Employee {
     employee: Employee;
 

@@ -1,3 +1,4 @@
+// Behavioral design pattern
 interface PaymentStrategy {
   pay(data:string): void
 }

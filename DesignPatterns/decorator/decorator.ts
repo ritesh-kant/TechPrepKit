@@ -1,3 +1,4 @@
+// Structual design pattern
 interface Pizza {
     cost(): number
     description(): string

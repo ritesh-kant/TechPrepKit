@@ -1,23 +1,29 @@
-// structural pattern
-interface Target {
-    request(): void
+// Structural pattern
+class OldPrinter {
+  printOld(text: string) {
+    console.log(`Old Printer: ${text}`);
   }
-  
-  class Adaptee {
-    specificRequest() {
-      console.log("Data from adaptee")
-    }
+}
+
+// Target interface
+class NewPrinterInterface {
+  print(text: string) {}
+}
+
+// Adapter
+class PrinterAdapter extends NewPrinterInterface {
+  constructor(private oldPrinter: OldPrinter) {
+    super();
+    this.oldPrinter = oldPrinter;
   }
-  
-  
-  class Adapter implements Target {
-    constructor(private adaptee: Adaptee){}
-    request() {
-      this.adaptee.specificRequest()
-    }
+
+  print(text: string) {
+    this.oldPrinter.printOld(text);
   }
-  
-  // usage
-  const adaptee = new Adaptee()
-  const adapter = new Adapter(adaptee)
-  adapter.request();
+}
+
+// Client code
+const oldPrinter = new OldPrinter();
+const adaptedPrinter = new PrinterAdapter(oldPrinter);
+
+adaptedPrinter.print("Hello from adapter!");
