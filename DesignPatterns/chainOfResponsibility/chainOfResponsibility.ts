@@ -1,34 +1,63 @@
-export abstract class BaseLogger {
-  constructor(public next: BaseLogger | null) {}
-  log(level: string, message: string) {
+// Behavioral design pattern
+abstract class Middleware {
+  protected next: Middleware | null = null;
+
+  linkWith(next: Middleware): Middleware {
+    this.next = next;
+    return next;
+  }
+
+  handle(request: any): boolean {
     if (this.next) {
-      this.next.log(level, message);
+      return this.next.handle(request);
     }
+    return true;
   }
 }
 
-export class InfoLogger extends BaseLogger {
-  constructor(next: BaseLogger) {
-    super(next);
-  }
-  log(logLevel: string, message: string): void {
-    if (logLevel === 'INFO') {
-      console.log('loging from info logger');
-    } else {
-      return super.log(logLevel, message);
+// Concrete Middlewares
+class AuthMiddleware extends Middleware {
+  handle(request: any): boolean {
+    if (!request.user) {
+      console.log('Authentication failed.');
+      return false;
     }
+    return super.handle(request);
   }
 }
 
-export class ErrorLogger extends BaseLogger {
-  constructor(next: BaseLogger | null) {
-    super(next);
-  }
-  log(logLevel: string, message: string): void {
-    if (logLevel === 'ERROR') {
-      console.log('loging from error logger');
-    } else {
-      return super.log(logLevel, message);
+class RoleMiddleware extends Middleware {
+  handle(request: any): boolean {
+    if (request.user.role !== 'admin') {
+      console.log('Access denied. Admins only.');
+      return false;
     }
+    return super.handle(request);
   }
 }
+
+class InputValidationMiddleware extends Middleware {
+  handle(request: any): boolean {
+    if (!request.body.name) {
+      console.log('Invalid input: name is required.');
+      return false;
+    }
+    return super.handle(request);
+  }
+}
+
+// Chain setup
+const auth = new AuthMiddleware();
+const role = new RoleMiddleware();
+const validation = new InputValidationMiddleware();
+
+auth.linkWith(role).linkWith(validation);
+
+// Request example
+const request = {
+  user: { name: 'Alice', role: 'admin' },
+  body: { name: 'Product A' }
+};
+
+const result = auth.handle(request);
+console.log(result ? 'Request processed ✅' : 'Request rejected ❌');
