@@ -1,30 +1,28 @@
-// Structual design pattern
-interface Employee {
-    create(): void;
-}
-
-class EmployeeImpl implements Employee {
-    create() {
-        console.log("Creating an employee");
+interface Service {
+    fetchData(): string;
+  }
+  
+  // Real service (expensive or protected)
+  class RealService implements Service {
+    fetchData(): string {
+      return "Real data from the server";
     }
-}
-
-class EmployeeProxy implements Employee {
-    employee: Employee;
-
-    constructor() {
-        this.employee = new EmployeeImpl();
+  }
+  
+  // Proxy
+  class ServiceProxy implements Service {
+    private realService: RealService | null = null;
+  
+    fetchData(): string {
+      if (!this.realService) {
+        console.log("Initializing real service...");
+        this.realService = new RealService();
+      }
+      console.log("Logging: fetchData was called");
+      return this.realService.fetchData();
     }
-    create(): void {
-        console.log("Proxy called");
-        this.employee.create();
-    }
-}
-
-// ///////////Main////////////////////////////////
-function main() {
-    let emp = new EmployeeProxy();
-    emp.create();
-}
-
-main();
+  }
+  
+  // Client code
+  const proxy = new ServiceProxy();
+  console.log(proxy.fetchData()); // Lazy initialization + logging

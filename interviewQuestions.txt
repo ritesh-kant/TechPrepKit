@@ -24,3 +24,6 @@ There’s a benchmark made by Fastify creators, it shows that express.js can han
  npm vs yarn
  
  Event bubbling and capturing 
+
+
+SSE (server side event )
