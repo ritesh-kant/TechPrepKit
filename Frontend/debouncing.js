@@ -3,14 +3,18 @@
 function debounce(func, delay) {
     let timeout;
     return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), delay);
-    };
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            func.apply(this, args)
+        }, delay);
+    }
 }
 
-window.addEventListener('resize', debounce(() => {
-    console.log('Window resized!');
-}, 250));
+const debounceFn = debounce(() => { 
+    console.log("debounced") 
+}, 2000)
+
+debounceFn()
 
 
 // Throttling is about limiting execution to a specific interval.
@@ -30,3 +34,5 @@ function throttle(func, delay) {
 window.addEventListener('scroll', throttle(() => {
     console.log('Scrolled!');
 }, 100)); 
+
+// `this` refers to the context of the function that the returned throttled (or debounced) function is called from.
