@@ -1,3 +1,4 @@
+// Structural Design pattern
 interface Service {
     fetchData(): string;
   }

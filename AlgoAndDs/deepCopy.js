@@ -1,5 +1,6 @@
 function deepCopy(obj) {
-    if (obj === null || typeof obj !== 'object') {
+    // if (obj === null || typeof obj !== 'object') {
+    if (!(obj instanceof Object)) {
       return obj; // Return primitive types or null as is
     }
   

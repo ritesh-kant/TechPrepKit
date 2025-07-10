@@ -32,3 +32,6 @@ class PaymentProcessor {
 
 const payment = new PaymentProcessor(new CreditCardStrategy())
 payment.checkout("500")
+
+payment.setStrategy(new NetBankingStrategy());
+payment.checkout("750");
