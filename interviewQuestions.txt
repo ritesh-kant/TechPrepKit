@@ -5,7 +5,10 @@ service worker vs web worker
 offline access
 
 security in reactjs
-content security policy
+
+Content Security Policy: CSP stands for Content Security Policy — it’s a security feature that helps prevent Cross-Site Scripting (XSS) and other code injection attacks in web applications.
+CSP is an HTTP response header your server sends to instruct the browser on which content is allowed to load and execute.
+
 rate limiting on FE
 when to use higher order functions and custom hooks
 
