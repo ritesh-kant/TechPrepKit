@@ -11,6 +11,16 @@ app.get("/slow", (req, res) => {
         res.send(msg.toString())
 
     })
+    worker.on("error", (err) => {   
+        console.error("Worker error:", err)
+        res.status(500).send("Worker error")
+    })
+    worker.on("exit", (code) => {
+        if (code !== 0) {
+            console.error(`Worker stopped with exit code ${code}`)
+            res.status(500).send("Worker stopped unexpectedly")
+        }
+    })
     
 })
 

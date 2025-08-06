@@ -1,15 +1,10 @@
-function getPrecedence(char) {
-    switch (char) {
-        case "+":
-        case "-":
-            return 1;
-        case "*":
-        case "/":
-            return 2;
-        default:
-            return 0;
-    }
-}
+const precedence = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '^': 3,
+  };
 function isOperator(operator) {
     return ["+", "-", "*", "/"].includes(operator)
 }
@@ -26,7 +21,7 @@ function infixToPostfix(infix) {
             ans += temp
             i--
         } else if (isOperator(infix[i])) {
-            while (stack.length && getPrecedence(stack.at(-1)) >= getPrecedence(infix[i])) {
+            while (stack.length && precedence[stack.at(-1)] >= precedence[infix[i]]) {
                 ans += stack.pop()
             }
             stack.push(infix[i])

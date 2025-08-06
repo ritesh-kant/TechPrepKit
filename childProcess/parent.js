@@ -5,6 +5,6 @@ child.on("message", (data) =>{
     console.log("message",data)
 })
 
-child.on("data", (data) => {
-    console.log("data", data)
+child.on("exit", (code) => {
+    console.log("exit code", code)
 })
