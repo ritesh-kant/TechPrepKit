@@ -85,7 +85,7 @@ let obj ={
   }
 }
 function dfs(obj, path) {
-    if(obj == null || typeof obj != 'object' || Array.isArray(obj)) {
+    if(!(obj instanceof Object) || Array.isArray(obj)) {
         ans[path.join("/")] = obj;
         return
     }
